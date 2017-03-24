@@ -3,19 +3,15 @@
 // init: this object holds code that executed during the first time client loads the script. what does it do? request data from the server, save them as global variables.
 var init = {};
 
-// populate: this object holds code that executed when the client changes page to the one that has been requested. what does it do? fill the forms, tables, graph etc with the data initialized before.
+// populate: this object holds code that executed when the client changes page to the one that has been requested.
+// what does it do? fill the forms, tables, graph etc with the data initialized before.
 //The client can manually refresh the data.
 var populate = {};
 
 // view: this object holds HTML strings to be parsed when the client requested them.
 var view = {};
 
-// default hash, a homepage. automatically redirected to the first navigation on the list
-if(window.location.hash === ""){
-	var firstNavHref = $(".nav-list").eq(0).children('a').attr('href');
-
-	window.location.hash = firstNavHref;
-}
+var token = false;
 
 // this function governs how a new "page" is requested. By page it means new content
 var loadPage = function(pageName){
@@ -32,7 +28,7 @@ var loadPage = function(pageName){
 	// title on the (typically) tab bar of a browser
 	document.title = a_element.children('span').html();
 
-	// this line of code checks if the view from a hash URL has been requested before
+	// this line of code checks the view global object
 	if(typeof view[window.location.hash.substr(1)] == 'undefined'){
 
 		// if not, then this page had never been requested before. Request from server.
@@ -49,6 +45,7 @@ var loadPage = function(pageName){
 			loadScript(scriptDir+pageName+'.js', function(){
 
 				// run "populate" function from the loaded script
+				console.log(window.location.hash.substr(1));
 				populate[window.location.hash.substr(1)]();
 			});
 		}).fail(function(e) {
@@ -92,8 +89,7 @@ function loadScript(url, callback){
 
 	    if (script.readyState){  //IE
 	        script.onreadystatechange = function(){
-	            if (script.readyState == "loaded" ||
-	                    script.readyState == "complete"){
+	            if (script.readyState == "loaded" || script.readyState == "complete"){
 	                script.onreadystatechange = null;
 	            	init[window.location.hash.substr(1)]();
 	                callback();
@@ -115,10 +111,18 @@ function loadScript(url, callback){
     
 }
 
+// for etc use
+function etcConfigs(){
+	$('#page-content').on('click', '.dropdown-menu>li>a', function(e){
+		e.preventDefault();
+  		var selText = $(this).text();
+  		$(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
+	});
+
+}
+
 $(document).ready(function(){
 	
-	loadPage(window.location.hash.substr(1));
-
 	$(window).on('hashchange', function() {
 		loadPage(window.location.hash.substr(1));
 	});
@@ -128,5 +132,14 @@ $(document).ready(function(){
 		window.location.hash = $(this).attr('href');
     });
 
-    
+    // default hash, a homepage. automatically redirected to the first navigation on the list
+	if(window.location.hash === ""){
+		var firstNavHref = $(".nav-list").eq(0).children('a').attr('href');
+
+		window.location.hash = firstNavHref;
+	} else {
+		loadPage(window.location.hash.substr(1));
+	}
+
+	etcConfigs();
 });

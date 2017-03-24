@@ -1,18 +1,451 @@
 <div class="row">
     <div class="col-lg-12">
-        <div class="text-center m-t-lg">
-            <h1>
-                MPOS DASHBOARD
-            </h1>
-            <small>
-                It is an application skeleton for a typical web app. You can use it to quickly bootstrap your webapp projects and dev environment for these projects.
+        <h1 class="text-center">DASHBOARD</h1>
 
-                <form>
-                    <input type="button" id="testminus1" value="-" />
-                    <input type="text" id="test1" name="" />
-                    <input type="button" id="testplus1" value="+" />
-                </form>
-            </small>
-        </div>
+        <div class="tabs-container">
+	        <ul class="nav nav-tabs">
+	        	<!-- tabs -->
+	            <li class="active"><a data-toggle="tab" href="#tab-overview">Overview</a></li>
+	            <li class=""><a data-toggle="tab" href="#tab-maps">Maps</a></li>
+	            <li class=""><a data-toggle="tab" href="#tab-holder">Holder</a></li>
+	            <li class=""><a data-toggle="tab" href="#tab-merchant">Merchant</a></li>
+	        </ul>
+	        <div class="tab-content">
+	        	<!-- tab contents -->
+
+	        	<!-- "overview" tab -->
+	            <div id="tab-overview" class="tab-pane active">
+	                <div class="panel-body">
+	                	<!-- widgets -->
+	                    <div class="row">
+	                    	<div class="col-lg-4">
+	                    		<div class="widget style1 lazur-bg">
+				                    <div class="row">
+				                        <div class="col-xs-4">
+				                            <i class="fa fa-user fa-5x"></i>
+				                        </div>
+				                        <div class="col-xs-8 text-right">
+				                            <span> Total Holder </span>
+				                            <h2 class="font-bold">260</h2>
+				                        </div>
+				                    </div>
+				                </div>
+	                    	</div>
+	                    	<div class="col-lg-4">
+	                    		<div class="widget style1 yellow-bg">
+				                    <div class="row">
+				                        <div class="col-xs-4">
+				                            <i class="fa fa-users fa-5x"></i>
+				                        </div>
+				                        <div class="col-xs-8 text-right">
+				                            <span> Total Merchant </span>
+				                            <h2 class="font-bold">12</h2>
+				                        </div>
+				                    </div>
+				                </div>
+	                    	</div>
+	                    	<div class="col-lg-4">
+				                <div class="widget style1 navy-bg">
+				                    <div class="row">
+				                        <div class="col-xs-4">
+				                            <i class="fa fa-user-circle-o fa-5x"></i>
+				                        </div>
+				                        <div class="col-xs-8 text-right">
+				                            <span> Total Merchant Active </span>
+				                            <h2 class="font-bold">9</h2>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+	                    </div>
+
+	                    <!-- graphs and charts -->
+	                    <div class="row">
+		                    <div class="col-lg-6">
+			                    <div class="ibox float-e-margins">
+			                        <div class="ibox-title">
+			                            <h5>Last Two Weeks
+			                                <small>Transaction and Tax</small>
+			                            </h5>
+			                        </div>
+			                        <div class="ibox-content">
+			                            <div>
+			                                <div id="lineChart"></div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			                <div class="col-lg-6">
+			                    <div class="ibox float-e-margins">
+			                        <div class="ibox-title">
+			                            <h5>Total Transaction 
+			                            	<small>Per-merchant Type</small>
+		                            	</h5>
+			                        </div>
+			                        <div class="ibox-content">
+			                            <div>
+			                                <div id="pie"></div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			                <div class="col-lg-6">
+			                    <div class="ibox float-e-margins">
+			                        <div class="ibox-title">
+			                            <h5>Last 12 Months
+			                            	<small>Earning and Tax</small>
+		                            	</h5>
+
+			                        </div>
+			                        <div class="ibox-content">
+			                            <div>
+			                                <div id="bar"></div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			                <div class="col-lg-6">
+			                    <div class="ibox float-e-margins">
+			                        <div class="ibox-title">
+			                            <h5>Payment Channel</h5>
+
+			                        </div>
+			                        <div class="row">
+				                        <div class="col-lg-4">
+				                        	<div class="ibox-content">
+					                            <div>
+					                                <div id="barhorizontal1"></div>
+					                            </div>
+					                        </div>
+				                        </div>
+				                        <div class="col-lg-4">
+				                        	<div class="ibox-content">
+					                            <div>
+					                                <div id="barhorizontal2"></div>
+					                            </div>
+					                        </div>
+				                        </div>
+				                        <div class="col-lg-4">
+				                        	<div class="ibox-content">
+					                            <div>
+					                                <div id="barhorizontal3"></div>
+					                            </div>
+					                        </div>
+				                        </div>
+			                        </div>
+			                        
+			                        
+			                        
+			                    </div>
+			                </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <!-- "maps" tab -->
+	            <div id="tab-maps" class="tab-pane">
+	                <div class="panel-body">
+	                	<div class="row">
+		                	<div class="col-md-10">
+		                		<div style="height: 500px;" id="map"></div>
+		                	</div>
+		                	<div class="col-md-2" style="height: 500px;">
+		                		<div style="height: 30%;">
+		                			<h3>Select By Type</h3>        
+								  	<div class="btn-group">
+								  		<a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">Select Type<span class="caret"></span></a>
+							            <ul class="dropdown-menu">
+							                <li><a>Minimarket</a></li>
+							                <li><a>Restaurant</a></li>
+							                <li><a>Massachusetts</a></li>
+							                <!-- <li class="divider"></li> -->
+							            </ul>
+							        </div>
+								</div>
+  								<div style="height: 80%;">
+  									<h3>Select By Holder</h3>        
+								  	<div class="btn-group">
+								  		<a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" href="#">Select holder<span class="caret"></span></a>
+							            <ul class="dropdown-menu">
+							                <li><a>Holder A</a></li>
+							                <li><a>Holder B</a></li>
+							                <li><a>Holder C</a></li>
+							                <!-- <li class="divider"></li> -->
+							            </ul>
+							        </div>
+  								</div>
+		                		
+	                		</div>
+	                	</div>
+	                </div>
+	            </div>
+	            <!-- "holder" tab -->
+	            <div id="tab-holder" class="tab-pane">
+	                <div class="panel-body">
+	                	<!-- widgets -->
+	                    <div class="row">
+	                    	<div class="col-lg-4">
+	                    		<div class="widget style1 lazur-bg">
+				                    <div class="row">
+				                        <div class="col-xs-4">
+				                            <i class="fa fa-user fa-5x"></i>
+				                        </div>
+				                        <div class="col-xs-8 text-right">
+				                            <span> Total Holder </span>
+				                            <h2 class="font-bold">260</h2>
+				                        </div>
+				                    </div>
+				                </div>
+	                    	</div>
+	                    	<div class="col-lg-4">
+	                    		<div class="widget style1 yellow-bg">
+				                    <div class="row">
+				                        <div class="col-xs-4">
+				                            <i class="fa fa-users fa-5x"></i>
+				                        </div>
+				                        <div class="col-xs-8 text-right">
+				                            <span> Total Merchant </span>
+				                            <h2 class="font-bold">12</h2>
+				                        </div>
+				                    </div>
+				                </div>
+	                    	</div>
+	                    	<div class="col-lg-4">
+				                <div class="widget style1 navy-bg">
+				                    <div class="row">
+				                        <div class="col-xs-4">
+				                            <i class="fa fa-user-circle-o fa-5x"></i>
+				                        </div>
+				                        <div class="col-xs-8 text-right">
+				                            <span> Total Merchant Active </span>
+				                            <h2 class="font-bold">6</h2>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+	                    </div>
+
+	                    <!-- graphs and charts -->
+	                    <div class="row">
+		                    <div class="col-lg-6">
+			                    <div class="ibox float-e-margins">
+			                        <div class="ibox-title">
+			                            <h5>Last Two Weeks
+			                                <small>Transaction and Tax</small>
+			                            </h5>
+			                        </div>
+			                        <div class="ibox-content">
+			                            <div>
+			                                <div id="lineChart-holder"></div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			                <div class="col-lg-6">
+			                    <div class="ibox float-e-margins">
+			                        <div class="ibox-title">
+			                            <h5>Earning 
+			                            	<small>Per-merchant</small>
+		                            	</h5>
+		                            	<div class="btn-group pull-right">
+								  			<a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" style="padding-top: 0px; padding-bottom: 0px;" href="#">Select holder<span class="caret"></span></a>
+								            <ul class="dropdown-menu">
+								                <li><a>Holder A</a></li>
+								                <li><a>Holder B</a></li>
+								                <li><a>Holder C</a></li>
+								                <!-- <li class="divider"></li> -->
+								            </ul>
+								        </div>
+								        <div class="pull-right">Filter Holder&nbsp;</div>
+			                        </div>
+			                        <div class="ibox-content">
+			                            <div>
+			                                <div id="pie-holder"></div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			                <div class="col-lg-6">
+			                    <div class="ibox float-e-margins">
+			                        <div class="ibox-title">
+			                            <h5>Last 12 Months
+			                            	<small>Earning and Tax</small>
+		                            	</h5>
+
+			                        </div>
+			                        <div class="ibox-content">
+			                            <div>
+			                                <div id="bar-holder"></div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			                <div class="col-lg-6">
+			                    <div class="ibox float-e-margins">
+			                        <div class="ibox-title">
+			                            <h5>Payment Channel</h5>
+
+			                        </div>
+			                        <div class="row">
+				                        <div class="col-lg-4">
+				                        	<div class="ibox-content">
+					                            <div>
+					                                <div id="barhorizontal1-holder"></div>
+					                            </div>
+					                        </div>
+				                        </div>
+				                        <div class="col-lg-4">
+				                        	<div class="ibox-content">
+					                            <div>
+					                                <div id="barhorizontal2-holder"></div>
+					                            </div>
+					                        </div>
+				                        </div>
+				                        <div class="col-lg-4">
+				                        	<div class="ibox-content">
+					                            <div>
+					                                <div id="barhorizontal3-holder"></div>
+					                            </div>
+					                        </div>
+				                        </div>
+			                        </div>
+			                        
+			                        
+			                        
+			                    </div>
+			                </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <!-- "merchant" tab -->
+	            <div id="tab-merchant" class="tab-pane">
+	                <div class="panel-body">
+	                	<!-- widgets -->
+	                    <div class="row">
+	                    	<div class="col-lg-4">
+	                    		<div class="widget style1 lazur-bg">
+				                    <div class="row">
+				                        <div class="col-xs-4">
+				                            <i class="fa fa-user fa-5x"></i>
+				                        </div>
+				                        <div class="col-xs-8 text-right">
+				                            <span> Total Holder </span>
+				                            <h2 class="font-bold">260</h2>
+				                        </div>
+				                    </div>
+				                </div>
+	                    	</div>
+	                    	<div class="col-lg-4">
+	                    		<div class="widget style1 yellow-bg">
+				                    <div class="row">
+				                        <div class="col-xs-4">
+				                            <i class="fa fa-users fa-5x"></i>
+				                        </div>
+				                        <div class="col-xs-8 text-right">
+				                            <span> Total Merchant </span>
+				                            <h2 class="font-bold">12</h2>
+				                        </div>
+				                    </div>
+				                </div>
+	                    	</div>
+	                    	<div class="col-lg-4">
+				                <div class="widget style1 navy-bg">
+				                    <div class="row">
+				                        <div class="col-xs-4">
+				                            <i class="fa fa-user-circle-o fa-5x"></i>
+				                        </div>
+				                        <div class="col-xs-8 text-right">
+				                            <span> Total Merchant Active </span>
+				                            <h2 class="font-bold">6</h2>
+				                        </div>
+				                    </div>
+				                </div>
+				            </div>
+	                    </div>
+
+	                    <!-- graphs and charts -->
+	                    <div class="row">
+		                    <div class="col-lg-6">
+			                    <div class="ibox float-e-margins">
+			                        <div class="ibox-title">
+			                            <h5>Last Two Weeks
+			                                <small>Transaction and Tax</small>
+			                            </h5>
+			                        </div>
+			                        <div class="ibox-content">
+			                            <div>
+			                                <div id="lineChart-merchant"></div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			                <div class="col-lg-6">
+			                    <div class="ibox float-e-margins">
+			                        <div class="ibox-title">
+			                            <h5>Best Seller Items</h5>
+			                            <br>
+			                            <div class="btn-group pull-right">
+								  			<a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" style="padding-top: 0px; padding-bottom: 0px;" href="#">Select Merchant<span class="caret"></span></a>
+								            <ul class="dropdown-menu">
+								                <li><a>Merchant A</a></li>
+								                <li><a>Merchant B</a></li>
+								                <li><a>Merchant C</a></li>
+								                <!-- <li class="divider"></li> -->
+								            </ul>
+								        </div>
+								        <div class="pull-right">Filter Merchant&nbsp;</div>
+								        <br>
+								        <br>
+		                            	<div class="btn-group pull-right">
+								  			<a class="btn btn-default dropdown-toggle btn-select2" data-toggle="dropdown" style="padding-top: 0px; padding-bottom: 0px;" href="#">Select holder<span class="caret"></span></a>
+								            <ul class="dropdown-menu">
+								                <li><a>Holder A</a></li>
+								                <li><a>Holder B</a></li>
+								                <li><a>Holder C</a></li>
+								                <!-- <li class="divider"></li> -->
+								            </ul>
+								        </div>
+								        <div class="pull-right">Filter Holder&nbsp;</div>
+			                        </div>
+			                        <div class="ibox-content">
+			                            <div>
+			                                <div id="pie-holder"></div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			                <div class="col-lg-6">
+			                    <div class="ibox float-e-margins">
+			                        <div class="ibox-title">
+			                            <h5>Last 12 Months
+			                            	<small>Earning and Tax</small>
+		                            	</h5>
+
+			                        </div>
+			                        <div class="ibox-content">
+			                            <div>
+			                                <div id="bar-merchant"></div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			                <div class="col-lg-6">
+			                    <div class="ibox float-e-margins">
+			                        <div class="ibox-title">
+			                            <h5>This Month</h5>
+
+			                        </div>
+			                        
+			                        
+			                        
+			                        
+			                    </div>
+			                </div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+
+
+	    </div>
     </div>
 </div>
