@@ -1,0 +1,105 @@
+<div class="row">
+		<div class="col-md-4">
+			<div class="panel panel-primary">
+                <div class="panel-heading">
+                    Create New User
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                    	<div class="row">
+	                    	<div class="col-md-6">
+	                    		<div class="form-group"><label>Name</label> <input type="text" placeholder="first name" class="form-control"></div>
+	                    	</div>
+	                    	<div class="col-md-6">
+	                    		<div class="form-group"><label>&nbsp;</label> <input type="text" placeholder="first name" class="form-control"></div>
+	                    	</div>
+                    	</div>
+	                    
+	                    <div class="form-group"><label>Username</label> <input type="text" placeholder="username to be logged in" class="form-control"></div>
+	                    <div class="form-group"><label>Email</label> <input type="email" placeholder="Email" class="form-control"></div>
+	                    <div class="form-group">
+	                    	<label>Holder</label>
+                            <select id="select-holder" class="form-control">
+                                <option value="1">Holder 1</option>
+                                <option value="2">Holder 2</option>
+                                <option value="3">Holder 3</option>
+                                <option value="4">Holder 4</option>
+                                <option value="5">Holder 5</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                        	<label>Merchant</label>
+                            <select id="select-merchant" class="form-control">
+                                <option value="1">Merchant 1</option>
+                                <option value="2">Merchant 2</option>
+                                <option value="3">Merchant 3</option>
+                                <option value="4">Merchant 4</option>
+                                <option value="5">Merchant 5</option>
+                            </select>
+                        </div>
+	                    <div class="form-group"><label>Password</label> <input type="text" placeholder="Password" class="form-control"></div>
+	                    <div class="form-group"><label>Phone</label> <input type="text" placeholder="+6281234567" class="form-control"></div>
+	                    <div class="form-group"><label>Identity Number</label> <input type="text" placeholder="e.g. driver license, passport" class="form-control"></div>
+	                    <div class="form-group"><label>Sex</label><div class="i-checks"><input type="radio" value="male" name="a"> Male <input type="radio" checked value="female" name="a"> Female</div></div>
+	                    <div>
+	                        &nbsp;<button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>Register</strong></button>
+	                        <button class="btn btn-sm btn-warning pull-right m-t-n-xs" type="reset"><strong>Reset Form</strong></button>
+	                    </div>
+	                </form>
+                </div>
+            </div>
+		</div>
+		<div class="col-md-8">
+			<div class="panel-info">
+				<div class="panel-heading">
+					List of Registered Users	
+				</div>
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="table table-striped" id="user-list-table">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Username</th>
+									<th>holder</th>
+									<th>Merchant</th>
+									<th>Email</th>
+									<th>Phone</th>
+									<th>Sex</th>
+								</tr>	
+							</thead>
+							<tbody>
+								<tr>
+									<td>Joko Hariono</td>
+									<td>jokoh88</td>
+									<td>Holder 1</td>
+									<td>Merchant 1</td>
+									<td>joko88@gmail.com</td>
+									<td>+6287784747474</td>
+									<td>Male</td>
+								</tr>
+								<tr>
+									<td>Wahidin Amirudin</td>
+									<td>wahid123</td>
+									<td>Holder 1</td>
+									<td>Merchant 2</td>
+									<td>wahid123@yahoo.co.id</td>
+									<td>+6282245785478</td>
+									<td>Male</td>
+								</tr>
+								<tr>
+									<td>Juminten</td>
+									<td>nten222</td>
+									<td>Holder 2</td>
+									<td>Merchant 2</td>
+									<td>nten22@aol.com</td>
+									<td>+628774774744</td>
+									<td>Female</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

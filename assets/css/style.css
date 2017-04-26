@@ -1,0 +1,19 @@
+.btn-menu-toggle {
+	position: fixed;
+	width: 50px;
+	margin-left: 170px;
+	z-index: 2001;
+	border-radius: 0px;
+}
+
+.btn-menu-toggle.minimized {
+	margin-left: 0px;
+}
+
+#page-wrapper.maximized {
+	margin-left: 0px !important;
+}
+
+.navbar-static-side.minimized {
+    display: none !important;
+}
