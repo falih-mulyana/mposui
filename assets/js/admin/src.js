@@ -1,4 +1,6 @@
-checkCookie(function(){});
+checkCookie(function(loggedUser){
+	$('#logged-id').html(loggedUser.userName);
+});
 
 // these three objects are used to store requested data from server so that the browser doesn't have to request the same page.
 
@@ -12,6 +14,9 @@ var populate = {};
 
 // view: this object holds HTML strings to be parsed when the client requested them.
 var view = {};
+
+//holds the local data
+var localData = {};
 
 // this function governs how a new "page" is requested. By page it means new content
 var loadPage = function(pageName){

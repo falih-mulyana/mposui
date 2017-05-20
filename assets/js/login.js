@@ -1,14 +1,17 @@
 var kuki = getCookie('token');
 if(kuki !== ''){
-	checkCookie(function(roleName){
-		switch(roleName){
+	checkCookie(function(loggedUser){
+		switch(loggedUser.roleName){
+			case 'DEV':
+				window.location = "/admin";
+				break;
 			case 'Administrator':
 				window.location = "/admin";
 				break;
 			case 'Holder':
 				window.location = "/holder";
 				break;
-			case 'Merchant':
+			case 'merchant':
 				window.location = "/merchant";
 				break;
 			default:
@@ -33,24 +36,24 @@ if(kuki !== ''){
 				success: function(data, status, xhr){
 					console.log(data);
 					var token = data.data.token;
-					document.cookie = "token="+token+"; path=/";
-					console.log(document.cookie.substr(6));
+					//document.cookie = "token="+token+"; path=/";
+					setCookie('token', token, 1);
 					
 					$.ajax({
 						method: 'GET',
 						url: 'http://192.168.100.50:8000/me',
 						beforeSend: function(request) {
-					    	request.setRequestHeader("X-Token", document.cookie.substr(6));
+					    	request.setRequestHeader("X-Token", token);
 					  	},
 						success: function(data, status, xhr){
 							console.log(data);
+							setCookie('username', data.data.user.username, 1);
 							var userRoleId = data.data.user.userRole._id;
-
 							$.ajax({
 								method: 'GET',
 								url: 'http://192.168.100.50:8000/rv1/userRole/' + userRoleId,
 								beforeSend: function(request) {
-							    	request.setRequestHeader("X-Token", document.cookie.substr(6));
+							    	request.setRequestHeader("X-Token", getCookie('token'));
 							  	},
 								success: function(data, status, xhr){
 									console.log(data);
@@ -58,6 +61,9 @@ if(kuki !== ''){
 
 									// look, i'm doing hardcode because the scope is limited. if somehow in the future the use of user role will be extended, by any means please do revise this.
 									switch(roleName){
+										case 'DEV':
+											window.location = "/admin";
+											break;
 										case 'Administrator':
 											window.location = "/admin";
 											break;
@@ -72,17 +78,23 @@ if(kuki !== ''){
 									}
 								},
 								error: function(status, xhr, err){
-									console.log(err);
+									alert(status.responseJSON.trace);
+									$("#login-btn").html("Login");
+									$("#login-btn").removeAttr("disabled")
 								}
 							});
 						},
 						error: function(status, xhr, err){
-							console.log(err);
+							alert(status.responseJSON.trace);
+							$("#login-btn").html("Login");
+							$("#login-btn").removeAttr("disabled")
 						}
 					});
 				},
 				error: function(status, xhr, err){
-					console.log(err);
+					alert(status.responseJSON.trace);
+					$("#login-btn").html("Login");
+					$("#login-btn").removeAttr("disabled")
 				}
 			});
 		});

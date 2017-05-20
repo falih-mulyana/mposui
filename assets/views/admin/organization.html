@@ -1,0 +1,162 @@
+<div class="row">
+	<div class="col-md-4">
+		<div class="panel panel-primary">
+            <div class="panel-heading">
+                Create New Organization / Holder
+            </div>
+            <div class="panel-body">
+                <form role="form">
+                	<div class="form-group"><label>Organization Name</label> <input type="text" id="name-input" placeholder="For new holder" class="form-control"></div>
+                	<!-- <div class="form-group">
+                		<label>Organization Logo</label>
+                		<div class="lightBoxGallery">
+                            <a href="/inspinia/img/gallery/1.jpg" title="Organization Logo" data-gallery=""><img src="/inspinia/img/gallery/1s.jpg"></a>
+                           
+                            <div id="blueimp-gallery" class="blueimp-gallery">
+                                <div class="slides"></div>
+                                <a class="close">×</a>
+                            </div>
+                            <input type="file" name="select-image-input" id="select-image-input" class="hidden">
+                            <a class="btn btn-sm btn-info" id="select-image-btn">Select Image</a>
+                        </div>
+                	</div> -->
+                    <div class="form-group"><label>Email</label> <input type="email" id="email-input" placeholder="Email" class="form-control"></div>
+                    <div class="form-group">
+                    	<label>Holder Type</label>
+                        <select id="select-holder-type" class="form-control">
+                            <!-- <option value="1">Restaurant</option>
+                            <option value="2">Conveinent Store</option> -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <a class="btn btn-sm btn-info pull-right m-t-n-xs" data-toggle="modal" data-target="#newtypemodal">Add new type</a>
+                        <div>&nbsp;</div>
+                    </div>
+                    <div class="form-group">
+                    	<label>Location</label>
+                    	<div class="input-group">
+                    		<input type="text" id="location-input" placeholder="edit if necessary" class="form-control"> 
+                    		<span class="input-group-btn"><button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#picklocationmodal">Pick Location</button></span>
+						</div>
+                    </div>
+                    <div class="form-group"><div class="i-checks"><label> <input type="checkbox" name="tax" value=""> <i></i> Tax </label></div></div>
+                    <div class="form-group"><label>NPWP</label> <input type="text" id="npwp-input" placeholder="Tax Number" class="form-control"></div>
+                    <div class="form-group"><label>Phone</label> <input type="text" id="phone-input" placeholder="+6281234567" class="form-control"></div>
+                    <div>
+                        &nbsp;<button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" id="new-org-btn"><strong>Register</strong></button>
+                        <button class="btn btn-sm btn-warning pull-right m-t-n-xs" type="reset"><strong>Reset Form</strong></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+	</div>
+	<div class="col-md-8">
+		<div class="panel-info">
+			<div class="panel-heading">
+				List of Registered Organizations	
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-striped" id="org-list-table">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Email</th>
+								<th>Type</th>
+								<th>Location</th>
+								<th>Tax</th>
+								<th>NPWP</th>
+								<th>Phone</th>
+							</tr>	
+						</thead>
+						<tbody>
+							<!-- <tr>
+								<td>Joko Hariono</td>
+								<td>jokoh88</td>
+								<td>Holder 1</td>
+								<td>Merchant 1</td>
+								<td>joko88@gmail.com</td>
+								<td>+6287784747474</td>
+								<td>Male</td>
+							</tr>
+							<tr>
+								<td>Wahidin Amirudin</td>
+								<td>wahid123</td>
+								<td>Holder 1</td>
+								<td>Merchant 2</td>
+								<td>wahid123@yahoo.co.id</td>
+								<td>+6282245785478</td>
+								<td>Male</td>
+							</tr>
+							<tr>
+								<td>Juminten</td>
+								<td>nten222</td>
+								<td>Holder 2</td>
+								<td>Merchant 2</td>
+								<td>nten22@aol.com</td>
+								<td>+628774774744</td>
+								<td>Female</td>
+							</tr> -->
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal inmodal fade" id="newtypemodal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Create New Holder Type</h4>
+                <small class="font-bold">Fill all the necessary fields.</small>
+            </div>
+            <div class="modal-body">
+                <p><strong>Lorem Ipsum is simply dummy</strong> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged.</p>
+                <p><strong>Lorem Ipsum is simply dummy</strong> text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+                    remaining essentially unchanged.</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal fade" id="picklocationmodal" tabindex="-1" role="dialog"  aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Select Location</h4>
+                <small class="font-bold">Drag the marker to change location.</small>
+            </div>
+            <div class="modal-body">
+            	<div class="form-group"><input id="lp-address" type="text" placeholder="location" class="form-control"></div>
+                <div id="lp" style="width: 100%; height: 400px;"></div>
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="lp-lat" class="sr-only">Lat</label>
+                        <input type="text" placeholder="Enter email" id="lp-lat" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="lp-lon" class="sr-only">Long</label>
+                        <input type="text" placeholder="longitude" id="lp-lon" class="form-control">
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="lp-save-btn">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,11 +11,23 @@
     <title></title>
 
     <link href="/inspinia/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/inspinia/css/animate.css" rel="stylesheet">
+    
+    <!-- inspinia css -->
+    <link href="/inspinia/css/style.css" rel="stylesheet">
+
+    <!-- font awesome -->
     <link href="/inspinia/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <!-- toastr -->
     <link href="/inspinia/css/plugins/toastr/toastr.min.css" rel="stylesheet">
 
-    <link href="/inspinia/css/animate.css" rel="stylesheet">
-    <link href="/inspinia/css/style.css" rel="stylesheet">
+    <!-- icheck & theme -->
+    <link href="/inspinia/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="/inspinia/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+
+    <!-- blueimp gallery -->
+    <link href="/inspinia/css/plugins/blueimp/css/blueimp-gallery.min.css" rel="stylesheet">
 
     <!-- select2 -->
     <link href="/inspinia/css/plugins/select2/select2.min.css" rel="stylesheet">
@@ -47,7 +59,7 @@
                 <li class="nav-header">
                     <div class="dropdown profile-element">
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold" id="logged-id"></strong>
                              </span> <span class="text-muted text-xs block">Administrator <b class="caret"></b></span> </span> </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a id="logout-btn">Logout</a></li>
@@ -127,6 +139,12 @@
 <!-- Data picker -->
 <script src="/inspinia/js/plugins/datapicker/bootstrap-datepicker.js"></script>
 
+<!-- iCheck -->
+<script src="/inspinia/js/plugins/iCheck/icheck.min.js"></script>
+
+<!-- blueimp gallery -->
+<script src="/inspinia/js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
+
 <!-- Custom and plugin javascript -->
 <script src="/inspinia/js/inspinia.js"></script>
 <script src="/inspinia/js/plugins/pace/pace.min.js"></script>
@@ -134,9 +152,10 @@
 
 <!-- Google maps -->
 <script src="/assets/js/markerclusterer.js"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4w-tAW88gpV7GJWu86-vNEFQWomT56K4"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4w-tAW88gpV7GJWu86-vNEFQWomT56K4&sensor=false&libraries=places"></script>
 
-
+<!-- Location Picker -->
+<script src="/assets/js/locationpicker.jquery.js"></script>
 
 
 </body>

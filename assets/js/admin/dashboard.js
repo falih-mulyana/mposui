@@ -63,7 +63,7 @@ var getList = function(){
 		method: 'GET',
 		url: 'http://192.168.100.50:8000/list',
 		beforeSend: function(xhr){
-			xhr.setRequestHeader('X-Token', document.cookie.substr(6));
+			xhr.setRequestHeader('X-Token', getCookie('token'));
 		},
 		/*xhrFields: {
 	  		withCredentials: true

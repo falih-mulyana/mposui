@@ -64,7 +64,7 @@ var getList = function(){
 		method: 'GET',
 		url: 'http://192.168.100.50:8000/list',
 		beforeSend: function(xhr){
-			xhr.setRequestHeader('X-Token', token);
+			xhr.setRequestHeader('X-Token', getCookie('token'));
 		},
 		/*xhrFields: {
 	  		withCredentials: true
@@ -178,27 +178,7 @@ populate.dashboard = function(){
 		}
 	});
 
-	if(!token){
-		$.ajax({
-			method: 'POST',
-			url: 'http://192.168.100.50:8000/auth',
-			data: {
-				username: 'root',
-				password: 'rootvd235'
-			},
-			success: function(data, status, xhr){
-				console.log(data);
-				token = data.data.token;
-
-				getList();
-			},
-			error: function(status, xhr, err){
-				console.log(err);
-			}
-		});
-	} else {
-		getList();
-	}
+	getList();
 
 	// graphs and charts
 	c3.generate({
