@@ -1,7 +1,7 @@
 console.log('device management script loaded');
 var bululu;
 
-init.device_management = function(){
+init.device_management = function(cb){
 	bululu = 700;
 
 	$('#page-content').on('click', '#testplus3', function(){
@@ -12,6 +12,8 @@ init.device_management = function(){
 		bululu -= 1;
 		$('#test3').val(bululu);
 	});
+
+    cb({success:true});
 }
 
 populate.device_management = function(){

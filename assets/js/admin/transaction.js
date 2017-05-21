@@ -12,6 +12,8 @@ init.transaction = function(){
 		bololo -= 1;
 		$('#test2').val(bololo);
 	});
+
+    cb({success:true});
 }
 
 populate.transaction = function(){

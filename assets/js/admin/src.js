@@ -4,7 +4,8 @@ checkCookie(function(loggedUser){
 
 // these three objects are used to store requested data from server so that the browser doesn't have to request the same page.
 
-// init: this object holds code that executed during the first time client loads the script. what does it do? request data from the server, save them as global variables.
+// init: this object holds code that executed during the first time client loads the script.
+// what does it do? request data from the server, save them as global variables.
 var init = {};
 
 // populate: this object holds code that executed when the client changes page to the one that has been requested.
@@ -96,14 +97,21 @@ function loadScript(url, callback){
 	        script.onreadystatechange = function(){
 	            if (script.readyState == "loaded" || script.readyState == "complete"){
 	                script.onreadystatechange = null;
-	            	init[window.location.hash.substr(1)]();
-	                callback();
+	            	init[window.location.hash.substr(1)](function(status){
+	            		if(status.success){
+	            			callback();
+	            		}
+	            	});
+	                
 	            }
 	        };
 	    } else {  //Others
 	        script.onload = function(){
-	        	init[window.location.hash.substr(1)]();
-	            callback();
+	        	init[window.location.hash.substr(1)](function(status){
+            		if(status.success){
+            			callback();
+            		}
+            	});
 	        };
 	    }
 

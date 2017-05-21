@@ -1,7 +1,7 @@
 console.log('user_management script loaded');
 
 init.user_management = function(){
-	
+	cb({success:true});
 }
 
 populate.user_management = function(){

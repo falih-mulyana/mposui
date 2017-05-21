@@ -54,8 +54,9 @@ var locations = [
 	{lat: -43.999792, lng: 170.463352}
 	]
 
-var manualreload = function(){
-
+var loadDashboard = function(cb){
+	// temp
+	cb(false, null);
 }
 
 var getList = function(){
@@ -316,7 +317,7 @@ var renderElements = function(tabsName){
 	}
 }
 
-init.dashboard = function(){
+init.dashboard = function(cb){
 	/*balala = 500;
 
 	$('#page-content').on('click', '#testplus1', function(){
@@ -342,7 +343,13 @@ init.dashboard = function(){
     });
 
 
-	manualreload();
+	loadDashboard(function(error, data){
+		if(!error){
+			cb({success: true});
+		} else {
+			cb({success: false, message: "Error fetching dashboard data from server"});
+		}
+	});
 }
 
 populate.dashboard = function(){

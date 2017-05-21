@@ -1,7 +1,7 @@
 console.log('menus_and_items script loaded');
 
-init.menus_and_items = function(){
-	
+init.menus_and_items = function(cb){
+	cb({success:true});
 }
 
 populate.menus_and_items = function(){
