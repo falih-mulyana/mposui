@@ -1,4 +1,30 @@
+///// TO DO:
+// 1: populate form with existing object
+// 2: implement update record function
+// 3: implement delete record function
+// 4: implement search record function
+
+
 console.log('user_management script loaded');
+
+var setNewOrgBtn = function(_state, _orgObj){
+    localData.newOrgBtn = _state;
+    if(_state){
+        $('#org-form-title').html('Create New Organization / Holder');
+        $('#new-org-btn strong').html('Register');
+        window.geolocationObj = {};
+
+    } else {
+        if(typeof _name === "undefined"){
+            setNewOrgBtn(true);
+        } else {
+            $('#org-form-title').html('Editing ' + _orgObj.name);
+            //TODO: 1
+        }
+        $('#new-org-btn strong').html('Update');
+    }
+    $('#new-org-btn').removeAttr('disabled');
+}
 
 var refreshTableData = function(){
     //disable any elements that may invoke server request
@@ -137,11 +163,13 @@ var configTableHolder = function(){
         if(localData.org.data[i].hasOwnProperty('email')){
             email = localData.org.data[i].email.value;
         }
-        if(localData.org.data[i].hasOwnProperty('address')){
-            address = localData.org.data[i].location.address;
+        if(localData.org.data[i].hasOwnProperty('location')){
+            if(localData.org.data[i].location.hasOwnProperty('address')){
+                address = localData.org.data[i].location.address;
+            }
         }
         if(localData.org.data[i].hasOwnProperty('npwp')){
-            phone = localData.org.data[i].phone.value;
+            npwp = localData.org.data[i].npwp;
         }
         
         for(j=0; j<localData.orgType.data.length; j++){
@@ -149,10 +177,9 @@ var configTableHolder = function(){
                 type = localData.orgType.data[j].name;
             }
         }
-        /*var el = '<tr><td>'+localData.org.data[i].name+'</td><td>'+email+'</td><td>'+type+'</td><td>'+ address +'</td><td>'+ tax +'</td><td>'+localData.org.data[i].npwp+'</td><td>'+ phone +'</td></tr>';
-        $('#org-list-table>tbody').append(el);*/
+        var additional_el = '<a class="btn btn-primary btn-org-edit" orgid="'+localData.org.data[i]._id+'"><span class="glyphicon glyphicon-pencil"></span></a><a class="btn btn-danger btn-org-delete" orgid="'+localData.org.data[i]._id+'"><span class="glyphicon glyphicon-remove-circle"></span></a>';
 
-        table.DataTable().row.add([localData.org.data[i].name, email, type, address, tax, npwp, phone]);
+        table.DataTable().row.add([localData.org.data[i].name, email, type, address, tax, npwp, phone, additional_el]);
     }
 
     
@@ -243,6 +270,7 @@ init.organization = function(cb){
     //localData.pageSize = 25;
     //localData.page = 1;
     //localData.org.searchparam = null;
+    setNewOrgBtn(true);
 
     // load to local data
     // because there's still no way of populate via rv1 route, we're only request org when we already got the orgType
@@ -321,56 +349,113 @@ populate.organization = function(){
         
     });
 
+    $('#reset-org-btn').on('click', function(){
+        setNewOrgBtn(true);
+    });
+
     $('#new-org-btn').on('click', function(e){
         e.preventDefault();
         //console.log(geolocationObj);
-        $.ajax({
-            method: 'POST',
-            url: 'http://192.168.100.50:8000/rv1/org',
-            beforeSend: function(request) {
-                request.setRequestHeader("X-Token", getCookie('token'));
-            },
-            data: {
+        
+        // this is either register button or update button according to the context
+        if(localData.newOrgBtn){
+            // so this is a new record, huh? aight.
+            $('#new-org-btn strong').html('Registering...');
+            $('#new-org-btn').attr('disabled', 'disabled');
+
+            var orgData = {
                 name: $('#name-input').val(),
                 'orgType._id': $('#select-holder-type').val(),
                 taxes: $('form [name="tax"]').prop("checked"),
-                npwp: $('#npwp-input').val(),
-                'email.value': $('#email-input').val(),
-                location: {
-                    address: $('#location-input').val(),
-                    country: window.geolocationObj.country,
-                    state: window.geolocationObj.state,
-                    zipcode: window.geolocationObj.postal_code,
-                    lat: $('#lp-lat').val(),
-                    long: $('#lp-lon').val()
+                'email.value': $('#email-input').val()
+            };
+
+            if($('#npwp-input').val() != ''){
+                orgData.npwp = $('#npwp-input').val();
+            }
+            if($('#phone-input').val() != ''){
+                orgData['phone.value'] = $('#phone-input').val();
+            }
+            var location = {};
+            if($('#location-input').val() != ''){
+                location.address = $('#location-input').val();
+            }
+            if(typeof window.geolocationObj.country != 'undefined'){
+                location.country = window.geolocationObj.country;
+            }
+            if(typeof window.geolocationObj.state != 'undefined'){
+                location.state = window.geolocationObj.state;
+            }
+            if(typeof window.geolocationObj.state != 'undefined'){
+                location.zipcode = window.geolocationObj.postal_code;
+            }
+            if(($('#lp-lat').val() == '')&&($('#lp-lon').val())){
+                location.lat = $('#lp-lat').val();
+                location.long = $('#lp-lon').val();
+            }
+
+            if(!$.isEmptyObject(location)){
+                orgData.location = location;
+            }
+
+            $.ajax({
+                method: 'POST',
+                url: 'http://192.168.100.50:8000/rv1/org',
+                beforeSend: function(request) {
+                    request.setRequestHeader("X-Token", getCookie('token'));
                 },
-                'phone.value': $('#phone-input').val()
-            },
-            success: function(data, status, xhr){
-                //console.log(data);
-                if(data.status==200 && data.message=="OK"){
-                    $('form')[0].reset();
-                    var msg = "New organization";
+                data: orgData,
+                success: function(data, status, xhr){
+                    //console.log(data);
+                    if(data.status==200 && data.message=="OK"){
+                        $('form')[0].reset();
+                        var msg = "New organization";
+                        toastr.options = {
+                            closeButton: true,
+                            progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 4000
+                        };
+                        toastr.success("has been inserted", msg);
+                        refreshTableData();
+                        setNewOrgBtn(true);
+                    } else {
+                        var msg = "Sorry but there was an error: ";
+                        toastr.options = {
+                            closeButton: true,
+                            progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 4000
+                        };
+                        toastr.error(data.trace, msg);
+                    }
+                },
+                error: function(status, xhr, err){
+                    var msg = "Sorry but there was an error: ";
                     toastr.options = {
                         closeButton: true,
                         progressBar: true,
                         showMethod: 'slideDown',
                         timeOut: 4000
                     };
-                    toastr.success("has been inserted", msg);
-                    }
-            },
-            error: function(status, xhr, err){
-                alert(status.responseJSON.trace);
-                var msg = "Sorry but there was an error: ";
-                toastr.options = {
-                    closeButton: true,
-                    progressBar: true,
-                    showMethod: 'slideDown',
-                    timeOut: 4000
-                };
-                toastr.error(status.responseJSON.trace, msg);
-            }
+                    toastr.error(status.responseJSON.trace, msg);
+                }
+            });
+        } else {
+            // update existing record? roger.
+            $('#new-org-btn strong').html('Updating...');
+            $('#new-org-btn').attr('disabled', 'disabled');
+            setNewOrgBtn(true);
+        }
+    
+    });
+
+    $('#org-list-table').on('click', '.btn-org-edit', function(){
+        var id = $(this).attr('orgid');
+        var obj = localData.org.data.find(function(element){
+            return element._id == id;
         });
+        console.log('editing ' + obj.name);
+        setNewOrgBtn(false, obj);
     });
 }

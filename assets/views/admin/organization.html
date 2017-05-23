@@ -1,7 +1,7 @@
 <div class="row">
 	<div class="col-md-4">
 		<div class="panel panel-primary">
-            <div class="panel-heading">
+            <div class="panel-heading" id="org-form-title">
                 Create New Organization / Holder
             </div>
             <div class="panel-body">
@@ -44,7 +44,7 @@
                     <div class="form-group"><label>Phone</label> <input type="text" id="phone-input" placeholder="+6281234567" class="form-control"></div>
                     <div>
                         &nbsp;<button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" id="new-org-btn"><strong>Register</strong></button>
-                        <button class="btn btn-sm btn-warning pull-right m-t-n-xs" type="reset"><strong>Reset Form</strong></button>
+                        <button class="btn btn-sm btn-warning pull-right m-t-n-xs" id="reset-org-btn" type="reset"><strong>Reset Form</strong></button>
                     </div>
                 </form>
             </div>
@@ -67,6 +67,7 @@
                                 <th>Tax</th>
                                 <th>NPWP</th>
                                 <th>Phone</th>
+                                <th>Action</th>
                             </tr>   
                         </thead>
                         <tbody>

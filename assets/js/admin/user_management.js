@@ -1,6 +1,6 @@
 console.log('user_management script loaded');
 
-init.user_management = function(){
+init.user_management = function(cb){
 	cb({success:true});
 }
 

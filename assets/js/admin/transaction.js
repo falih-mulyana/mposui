@@ -1,7 +1,7 @@
 console.log('transaction script loaded');
 var bololo;
 
-init.transaction = function(){
+init.transaction = function(cb){
 	bololo = 600;
 
 	$('#page-content').on('click', '#testplus2', function(){
