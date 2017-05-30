@@ -32,31 +32,11 @@ function checkCookie(cb) {
 		    	request.setRequestHeader("X-Token", getCookie('token'));
 		  	},
 			success: function(data, status, xhr){
-				//console.log(data);
 				loggedUser.userName = data.data.user.username;
-				var userRoleId = data.data.user.userRole._id;
-				$.ajax({
-					method: 'GET',
-					url: 'http://192.168.100.50:8000/rv1/userRole/' + userRoleId,
-					beforeSend: function(request) {
-				    	request.setRequestHeader("X-Token", getCookie('token'));
-				  	},
-					success: function(data, status, xhr){
-						//console.log(data);
-						loggedUser.roleName = data.data.name;
-						cb(loggedUser);
-					},
-					error: function(status, xhr, err){
-						//console.log(status);
-						if(status.status == 500){
-							// token invalid. reset it
-							document.cookie = 'token=; path=/';
-							window.location = "/login";
-						} else if (status.status == 0){
-							$('body').html("<h2>Cannot connect to the server. Please try again later.</h2>");
-						}
-					}
-				});
+				//var userRoleId = data.data.user.userRole._id;
+				loggedUser.roleName = data.data.user.userRole.name;
+				cb(loggedUser);
+				
 			},
 			error: function(status, xhr, err){
 				//console.log(status);

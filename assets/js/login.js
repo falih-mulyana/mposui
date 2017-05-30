@@ -48,41 +48,25 @@ if(kuki !== ''){
 						success: function(data, status, xhr){
 							console.log(data);
 							setCookie('username', data.data.user.username, 1);
-							var userRoleId = data.data.user.userRole._id;
-							$.ajax({
-								method: 'GET',
-								url: 'http://192.168.100.50:8000/rv1/userRole/' + userRoleId,
-								beforeSend: function(request) {
-							    	request.setRequestHeader("X-Token", getCookie('token'));
-							  	},
-								success: function(data, status, xhr){
-									console.log(data);
-									var roleName = data.data.name;
-
-									// look, i'm doing hardcode because the scope is limited. if somehow in the future the use of user role will be extended, by any means please do revise this.
-									switch(roleName){
-										case 'DEV':
-											window.location = "/admin";
-											break;
-										case 'Administrator':
-											window.location = "/admin";
-											break;
-										case 'Holder':
-											window.location = "/holder";
-											break;
-										case 'Merchant':
-											window.location = "/merchant";
-											break;
-										default:
-											break;
-									}
-								},
-								error: function(status, xhr, err){
-									alert(status.responseJSON.trace);
-									$("#login-btn").html("Login");
-									$("#login-btn").removeAttr("disabled")
-								}
-							});
+							setCookie('orgid', data.data.user.org._id, 1);
+							var roleName = data.data.user.userRole.name;
+							// look, i'm doing hardcode because the scope is limited. if somehow in the future the use of user role will be extended, by any means please do revise this.
+							switch(roleName){
+								case 'DEV':
+									window.location = "/admin";
+									break;
+								case 'Administrator':
+									window.location = "/admin";
+									break;
+								case 'Holder':
+									window.location = "/holder";
+									break;
+								case 'Merchant':
+									window.location = "/merchant";
+									break;
+								default:
+									break;
+							}
 						},
 						error: function(status, xhr, err){
 							alert(status.responseJSON.trace);
