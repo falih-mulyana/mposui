@@ -84,7 +84,7 @@ var configSelectHolderType = function(){
             },
             data: function (params) {
                 return {
-                    and: '{"name":\'\'*'+params.term+'*\'\'}', // search term
+                    and: '{"org._id":"'+getCookie('orgid')+'","name":\'\'*'+params.term+'*\'\'}', // search term
                     page: params.page
                 };
             },

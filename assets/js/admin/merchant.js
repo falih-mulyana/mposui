@@ -38,7 +38,7 @@ var setNewMerchantBtn = function(_merchantObj){
     }
 }
 
-var refreshTableData = function(){
+var refreshMerchantTableData = function(){
     //disable any elements that may invoke server request
     $('#merchant-table-server-refresh').attr('disabled', 'disabled');
     $('#merchant-table-server-refresh').html('<span class="glyphicon glyphicon-refresh"></span> Reloading...');
@@ -173,11 +173,11 @@ var configTableMerchant = function(){
                     localData.merchant.raw.property.paging.limit = parseInt($(this).val());
                     localData.merchant.raw.property.paging.page = 1;
                     console.log(localData.merchant.raw.property.paging.limit);
-                    refreshTableData();
+                    refreshMerchantTableData();
                 });
 
                 $('#merchant-table-server-refresh').on('click', function(){
-                    refreshTableData();
+                    refreshMerchantTableData();
                 });
 
                 $('#merchant-list-table_filter input[type="search"]').addClass('hidden');
@@ -191,7 +191,7 @@ var configTableMerchant = function(){
                         } else {
                             delete localData.merchant.searchparam;
                         }
-                        refreshTableData();
+                        refreshMerchantTableData();
                     }
                 });
 
@@ -243,13 +243,13 @@ var configTableMerchant = function(){
     $('#merchant-table-server-previous').on('click', function(){
         if(localData.merchant.raw.property.paging.page > 1){
             localData.merchant.raw.property.paging.page = localData.merchant.raw.property.paging.page-1;
-            refreshTableData();
+            refreshMerchantTableData();
         }
     })
     $('#merchant-table-server-next').on('click', function(){
         if(localData.merchant.raw.property.total > localData.merchant.raw.property.paging.limit*localData.merchant.raw.property.paging.page){
             localData.merchant.raw.property.paging.page = localData.merchant.raw.property.paging.page+1;
-            refreshTableData();
+            refreshMerchantTableData();
         }
     });
     $('#merchant-list-table_info').html('Showing '+ ((localData.merchant.raw.property.paging.page-1)*localData.merchant.raw.property.paging.limit+1) +' to '+ (localData.merchant.raw.property.paging.limit*localData.merchant.raw.property.paging.page < localData.merchant.raw.property.total? localData.merchant.raw.property.paging.limit*localData.merchant.raw.property.paging.page:localData.merchant.raw.property.total) +' of <strong>'+ localData.merchant.raw.property.total +'</strong> entries');    
@@ -536,7 +536,7 @@ populate.merchant = function(){
                             timeOut: 4000
                         };
                         toastr.success("has been inserted", msg);
-                        refreshTableData();
+                        refreshMerchantTableData();
                         setNewMerchantBtn();
                     } else {
                         var msg = "Sorry but there was an error: ";
@@ -587,7 +587,7 @@ populate.merchant = function(){
                             timeOut: 4000
                         };
                         toastr.success("has been updated", msg);
-                        refreshTableData();
+                        refreshMerchantTableData();
                         setNewMerchantBtn();
                     } else {
                         var msg = "Sorry but there was an error: ";
@@ -689,7 +689,7 @@ populate.merchant = function(){
                         timeOut: 4000
                     };
                     toastr.success("has been deleted", msg);
-                    refreshTableData();
+                    refreshMerchantTableData();
                 } else {
                     var msg = "Sorry but there was an error: ";
                     toastr.options = {
@@ -719,5 +719,9 @@ populate.merchant = function(){
                 $('#deleteMerchantModal').modal('hide');
             }
         });
+    });
+
+    $('#reset-merchant-btn').on('click', function(){
+        setNewMerchantBtn();
     });
 }
