@@ -1,6 +1,8 @@
-checkCookie(function(loggedUser){
-	$('#logged-id').html(loggedUser.userName);
-});
+var loggedUser = checkCookie();
+if(loggedUser.userRole != 'DEV' && loggedUser.userRole != 'super'){
+	redirectToPage(loggedUser.userRole);
+}
+$('#logged-id').html(loggedUser.userName);
 
 // these three objects are used to store requested data from server so that the browser doesn't have to request the same page.
 
@@ -137,17 +139,17 @@ function etcConfigs(){
 		e.preventDefault();
 		$(this).html('Logging out..');
 		document.cookie = 'token=; path=/';
-
-		$.ajax({
+		location.reload();
+		/*$.ajax({
 			method: 'GET',
 			url: 'http://192.168.100.50:8000/logout',
 			success: function(data, status, xhr){
-				location.reload();
+				
 			},
 			error: function(status, xhr, err){
 				
 			}
-		});
+		});*/
 	});
 
 }

@@ -1,6 +1,13 @@
+var loggedUser = checkCookie();
+if(loggedUser.userRole != 'merchant'){
+	redirectToPage(loggedUser.userRole);
+}
+$('#logged-id').html(loggedUser.userName);
+
 // these three objects are used to store requested data from server so that the browser doesn't have to request the same page.
 
-// init: this object holds code that executed during the first time client loads the script. what does it do? request data from the server, save them as global variables.
+// init: this object holds code that executed during the first time client loads the script.
+// what does it do? request data from the server, save them as global variables.
 var init = {};
 
 // populate: this object holds code that executed when the client changes page to the one that has been requested.
@@ -11,7 +18,8 @@ var populate = {};
 // view: this object holds HTML strings to be parsed when the client requested them.
 var view = {};
 
-var token = false;
+//holds the local data
+var localData = {};
 
 // this function governs how a new "page" is requested. By page it means new content
 var loadPage = function(pageName){
@@ -91,14 +99,21 @@ function loadScript(url, callback){
 	        script.onreadystatechange = function(){
 	            if (script.readyState == "loaded" || script.readyState == "complete"){
 	                script.onreadystatechange = null;
-	            	init[window.location.hash.substr(1)]();
-	                callback();
+	            	init[window.location.hash.substr(1)](function(status){
+	            		if(status.success){
+	            			callback();
+	            		}
+	            	});
+	                
 	            }
 	        };
 	    } else {  //Others
 	        script.onload = function(){
-	        	init[window.location.hash.substr(1)]();
-	            callback();
+	        	init[window.location.hash.substr(1)](function(status){
+            		if(status.success){
+            			callback();
+            		}
+            	});
 	        };
 	    }
 
@@ -119,6 +134,24 @@ function etcConfigs(){
   		$(this).parents('.btn-group').find('.dropdown-toggle').html(selText+' <span class="caret"></span>');
 	});
 
+	//logout button
+	$('#logout-btn').on('click', function(e){
+		e.preventDefault();
+		$(this).html('Logging out..');
+		document.cookie = 'token=; path=/';
+		location.reload();
+		/*$.ajax({
+			method: 'GET',
+			url: 'http://192.168.100.50:8000/logout',
+			success: function(data, status, xhr){
+				
+			},
+			error: function(status, xhr, err){
+				
+			}
+		});*/
+	});
+
 }
 
 $(document).ready(function(){
@@ -131,6 +164,14 @@ $(document).ready(function(){
 		e.preventDefault();
 		window.location.hash = $(this).attr('href');
     });
+
+    $(".btn-menu-toggle").on("click", function(e){
+    	e.preventDefault();
+    	$(".btn-menu-toggle").toggleClass("minimized");
+    	$("#page-wrapper").toggleClass("maximized");
+    	$(".navbar-static-side").toggleClass("minimized");
+    })
+
 
     // default hash, a homepage. automatically redirected to the first navigation on the list
 	if(window.location.hash === ""){

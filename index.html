@@ -1,20 +1,7 @@
 <script src="/inspinia/js/jquery-2.1.1.js"></script>
 <script src="/assets/js/cookie.js"></script>
 <script type="text/javascript">
-	checkCookie(function(loggedUser){
-		// look, i'm doing hardcode because the scope is limited. if somehow in the future the use of user role will be extended, by any means please do revise this.
-		switch(loggedUser.roleName){
-			case 'Administrator':
-				window.location = "/admin";
-				break;
-			case 'Holder':
-				window.location = "/holder";
-				break;
-			case 'Merchant':
-				window.location = "/merchant";
-				break;
-			default:
-				break;
-		}
-	});
+	$('html').html('<h2>'+waitingMessage()+'</h2>');
+	var kuki = checkCookie();
+	redirectToPage(kuki.userrole);
 </script>

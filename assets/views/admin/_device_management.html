@@ -1,0 +1,179 @@
+<!-- TODO:
+create
+read
+update 
+delete -->
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="m-t-lg">
+            <h1 class="text-center">
+                DEVICE MANAGEMENT
+            </h1>
+            
+            <div class="row">
+                <!-- <div class="col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            Filter Device
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <select id="select-holder" class="form-control">
+                                    <option></option>
+                                    <option value="1">Holder 1</option>
+                                    <option value="2">Holder 2</option>
+                                    <option value="3">Holder 3</option>
+                                    <option value="4">Holder 4</option>
+                                    <option value="5">Holder 5</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select id="select-merchant" class="form-control pull-right">
+                                    <option></option>
+                                    <option value="1">Merchant 1</option>
+                                    <option value="2">Merchant 2</option>
+                                    <option value="3">Merchant 3</option>
+                                    <option value="4">Merchant 4</option>
+                                    <option value="5">Merchant 5</option>
+                                </select>
+                            </div>
+                            <a class="btn btn-primary btn-block">Filter</a>
+                        </div>
+                        
+                    </div>
+                </div> -->
+            </div>
+            <br>
+            <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal5">
+                Add New Device
+            </button>
+            <br><br><br>
+            <div class="modal inmodal fade" id="myModal5" tabindex="-1" role="dialog"  aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <h4 class="modal-title">Add New Device</h4>
+                            <small class="font-bold">Fill all the information required</small>
+                        </div>
+                        <div class="modal-body">
+                             <form role="form">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group"><label>Device ID</label> <input type="text" placeholder="" class="form-control"></div>
+                                        <div class="form-group"><label>Vendor Name</label> <input type="text" placeholder="" class="form-control"></div>
+                                        <div class="form-group"><label>POS Type</label> <input type="text" placeholder="" class="form-control"></div>
+                                        <div class="form-group"><label>Series</label> <input type="text" placeholder="" class="form-control"></div>
+                                        <div class="form-group"><label>OS</label> <input type="text" placeholder="" class="form-control"></div>
+                                        <div class="form-group"><label>OS Version</label> <input type="text" placeholder="" class="form-control"></div>
+                                        <div class="form-group"><label>Firmware</label> <input type="text" placeholder="" class="form-control"></div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group"><label>Application Version</label> <input type="text" placeholder="" class="form-control"></div>
+                                        <div class="form-group"><label>Phone Number</label> <input type="text" placeholder="" class="form-control"></div>
+                                        <div class="form-group"><label>Latitude</label> <input type="text" placeholder="" class="form-control"></div>
+                                        <div class="form-group"><label>Longitude</label> <input type="text" placeholder="" class="form-control"></div>
+                                        <label>Register To</label>
+                                        <div class="form-group">
+                                            <select id="select-holder" class="form-control">
+                                                <option value="1">Holder 1</option>
+                                                <option value="2">Holder 2</option>
+                                                <option value="3">Holder 3</option>
+                                                <option value="4">Holder 4</option>
+                                                <option value="5">Holder 5</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select id="select-merchant" class="form-control">
+                                                <option value="1">Merchant 1</option>
+                                                <option value="2">Merchant 2</option>
+                                                <option value="3">Merchant 3</option>
+                                                <option value="4">Merchant 4</option>
+                                                <option value="5">Merchant 5</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover" id="device-list-table" >
+                <thead>
+                <tr>
+                    <th>Device ID</th>
+                    <th>Holder</th>
+                    <th>Merchant</th>
+                    <th>Vendor Name</th>
+                    <th>Type</th>
+                    <th>OS</th>
+                    <th>OS Version</th>
+                    <th>Firmware</th>
+                    <th>Lat</th>
+                    <th>Lon</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>12345678654</td>
+                        <td>PT. ABC</td>
+                        <td>dd</td>
+                        <td>QWE</td>
+                        <td>QW12221</td>
+                        <td>Windows 10</td>
+                        <td>1.223</td>
+                        <td>1.54</td>
+                        <td>-6.223232</td>
+                        <td>102.344343</td>
+                        <td><a class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Edit Data</a></td>
+                        <td><a class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove-circle"></span>  </a></td>
+                    </tr>
+                    <tr>
+                        <td>333221212112</td>
+                        <td>PT. ABC</td>
+                        <td>dd</td>
+                        <td>QWE</td>
+                        <td>QW12221</td>
+                        <td>Windows 10</td>
+                        <td>1.223</td>
+                        <td>1.54</td>
+                        <td>-6.223232</td>
+                        <td>102.34343</td>
+                        <td><a class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span> Edit Data</a></td>
+                        <td><a class="btn btn-lg btn-danger"><span class="glyphicon glyphicon-remove-circle"></span>  </a></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th>Device ID</th>
+                    <th>Holder</th>
+                    <th>Merchant</th>
+                    <th>Vendor Name</th>
+                    <th>Type</th>
+                    <th>OS</th>
+                    <th>OS Version</th>
+                    <th>Firmware</th>
+                    <th>Lat</th>
+                    <th>Lon</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+                </tfoot>
+                </table>
+            </div>
+
+        </div>
+        </div>
+    </div>
+</div>

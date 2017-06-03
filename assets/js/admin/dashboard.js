@@ -73,7 +73,22 @@ var getList = function(){
 			console.log(data);
 		},
 		error: function(status, xhr, err){
-			console.log(err);
+			var msg = errorRequestHandler(status);
+			if( msg == expiredTokenMessage()){
+				document.cookie = 'token=; path=/';
+        		location.reload();
+			} else if(msg == serverErrorMessage()){
+				$('body').html('<h2 style="color: white;">'+msg+'</h2>');
+			} else {
+				var msg = "Sorry but there was an error: ";
+				toastr.options = {
+	                closeButton: true,
+	                progressBar: true,
+	                showMethod: 'slideDown',
+	                timeOut: 4000
+	            };
+	            toastr.error(status.responseJSON.trace, msg);
+			}
 		}
 	});
 }

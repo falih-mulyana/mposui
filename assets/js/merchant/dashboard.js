@@ -1,5 +1,4 @@
 console.log('dashboard script loaded');
-var balala;
 var rendered;
 
 function initMap() {
@@ -55,8 +54,9 @@ var locations = [
 	{lat: -43.999792, lng: 170.463352}
 	]
 
-var manualreload = function(){
-
+var loadDashboard = function(cb){
+	// temp
+	cb(false, null);
 }
 
 var getList = function(){
@@ -64,7 +64,7 @@ var getList = function(){
 		method: 'GET',
 		url: 'http://192.168.100.50:8000/list',
 		beforeSend: function(xhr){
-			xhr.setRequestHeader('X-Token', token);
+			xhr.setRequestHeader('X-Token', getCookie('token'));
 		},
 		/*xhrFields: {
 	  		withCredentials: true
@@ -73,31 +73,35 @@ var getList = function(){
 			console.log(data);
 		},
 		error: function(status, xhr, err){
-			console.log(err);
+			var msg = errorRequestHandler(status);
+			if( msg == expiredTokenMessage()){
+				document.cookie = 'token=; path=/';
+        		location.reload();
+			} else if(msg == serverErrorMessage()){
+				$('body').html('<h2 style="color: white;">'+msg+'</h2>');
+			} else {
+				var msg = "Sorry but there was an error: ";
+				toastr.options = {
+	                closeButton: true,
+	                progressBar: true,
+	                showMethod: 'slideDown',
+	                timeOut: 4000
+	            };
+	            toastr.error(status.responseJSON.trace, msg);
+			}
 		}
 	});
 }
 
 var renderElements = function(tabsName){
-	switch(tabsName){
-		
+	switch(tabsName){	
 		case 'tab-maps':
 			initMap();
 			break;
 	}
 }
 
-init.dashboard = function(){
-	balala = 500;
-
-	$('#page-content').on('click', '#testplus1', function(){
-		balala += 1;
-		$('#test1').val(balala);
-	});
-	$('#page-content').on('click', '#testminus1', function(){
-		balala -= 1;
-		$('#test1').val(balala);
-	});
+init.dashboard = function(cb){
 
 	$('#page-content').on('click', '.collapse-link', function () {
         var ibox = $(this).closest('div.ibox');
@@ -113,7 +117,13 @@ init.dashboard = function(){
     });
 
 
-	manualreload();
+	loadDashboard(function(error, data){
+		if(!error){
+			cb({success: true});
+		} else {
+			cb({success: false, message: "Error fetching dashboard data from server"});
+		}
+	});
 }
 
 populate.dashboard = function(){
@@ -133,27 +143,7 @@ populate.dashboard = function(){
 		}
 	});
 
-	if(!token){
-		$.ajax({
-			method: 'POST',
-			url: 'http://192.168.100.50:8000/auth',
-			data: {
-				username: 'root',
-				password: 'rootvd235'
-			},
-			success: function(data, status, xhr){
-				console.log(data);
-				token = data.data.token;
-
-				getList();
-			},
-			error: function(status, xhr, err){
-				console.log(err);
-			}
-		});
-	} else {
-		getList();
-	}
+	getList();
 
 	// graphs and charts
 	c3.generate({

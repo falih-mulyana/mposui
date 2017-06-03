@@ -62,7 +62,7 @@ var refreshMerchantTableData = function(){
     });
 }
 
-var configSelectMerchantType = function(){
+var configSelectMerchantTypeMerchant = function(){
 
     $("#select-merchant-type").select2({
         ajax: {
@@ -95,7 +95,25 @@ var configSelectMerchantType = function(){
                     }
                 };
             },
-            cache: true
+            cache: true,
+            error: function(status, xhr, err){
+                var msg = errorRequestHandler(status);
+                if( msg == expiredTokenMessage()){
+                    document.cookie = 'token=; path=/';
+                    location.reload();
+                } else if(msg == serverErrorMessage()){
+                    $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+                } else {
+                    var msg = "Sorry but there was an error: ";
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+                    toastr.error(status.responseJSON.trace, msg);
+                }
+            }
         },
         templateResult: function(data){
            return data.name || data.text;
@@ -255,7 +273,7 @@ var configTableMerchant = function(){
     $('#merchant-list-table_info').html('Showing '+ ((localData.merchant.raw.property.paging.page-1)*localData.merchant.raw.property.paging.limit+1) +' to '+ (localData.merchant.raw.property.paging.limit*localData.merchant.raw.property.paging.page < localData.merchant.raw.property.total? localData.merchant.raw.property.paging.limit*localData.merchant.raw.property.paging.page:localData.merchant.raw.property.total) +' of <strong>'+ localData.merchant.raw.property.total +'</strong> entries');    
 }
 
-var configSelectHolder = function(){
+var configSelectHolderMerchant = function(){
 
     $("#select-holder").select2({
         ajax: {
@@ -284,7 +302,25 @@ var configSelectHolder = function(){
                     }
                 };
             },
-            cache: true
+            cache: true,
+            error: function(status, xhr, err){
+                var msg = errorRequestHandler(status);
+                if( msg == expiredTokenMessage()){
+                    document.cookie = 'token=; path=/';
+                    location.reload();
+                } else if(msg == serverErrorMessage()){
+                    $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+                } else {
+                    var msg = "Sorry but there was an error: ";
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+                    toastr.error(status.responseJSON.trace, msg);
+                }
+            }
         },
         templateResult: function(data){
            return data.name || data.text;
@@ -303,7 +339,7 @@ var configSelectHolder = function(){
                 id: $("#select-holder").val(),
                 name: $("#select-holder").select2('data')[0].name || $("#select-holder").select2('data')[0].text
             }
-            configSelectMerchantType();
+            configSelectMerchantTypeMerchant();
             loadMerchant(localData.merchant.searchFromHolder.id, function(err, data){
                 if(!err){
                     // re-enable the elements
@@ -367,16 +403,23 @@ var loadMerchant = function(_orgid, cb){
             cb(false, data);    
         },
         error: function(status, xhr, err){
-            alert(status.responseJSON.trace);
-            var msg = "Sorry but there was an error: ";
-            toastr.options = {
-                closeButton: true,
-                progressBar: true,
-                showMethod: 'slideDown',
-                timeOut: 4000
-            };
-            toastr.error(status.responseJSON.trace, msg);
-            cb(true, status.responseJSON.trace);
+            var msg = errorRequestHandler(status);
+            if( msg == expiredTokenMessage()){
+                document.cookie = 'token=; path=/';
+                location.reload();
+            } else if(msg == serverErrorMessage()){
+                $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+            } else {
+                var msg = "Sorry but there was an error: ";
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    timeOut: 4000
+                };
+                toastr.error(status.responseJSON.trace, msg);
+                cb(true, status.responseJSON.trace);
+            }
         }
     });
 }
@@ -396,7 +439,7 @@ populate.merchant = function(){
         setNewMerchantBtn(localData.updateMerchant);
     }
 	// config select holder element
-	configSelectHolder();
+	configSelectHolderMerchant();
 
     console.log(localData.merchant.searchFromHolder);
 	if(typeof localData.merchant.searchFromHolder !== 'undefined'){
@@ -449,17 +492,26 @@ populate.merchant = function(){
                 $('#newtypemodal').modal('hide');
             },
             error: function(status, xhr, err){
-                var msg = "Sorry but there was an error: ";
-                toastr.options = {
-                    closeButton: true,
-                    progressBar: true,
-                    showMethod: 'slideDown',
-                    timeOut: 4000
-                };
-                toastr.error(status.responseJSON.trace, msg);
-                _el.html('Save Changes');
-                _el.removeAttr('disabled');
-                $('#newtypemodal').modal('hide');
+                var msg = errorRequestHandler(status);
+                if( msg == expiredTokenMessage()){
+                    document.cookie = 'token=; path=/';
+                    location.reload();
+                } else if(msg == serverErrorMessage()){
+                    $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+                } else {
+                    var msg = "Sorry but there was an error: ";
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+                    toastr.error(status.responseJSON.trace, msg);
+                    _el.html('Save Changes');
+                    _el.removeAttr('disabled');
+                    $('#newtypemodal').modal('hide');
+                }
+
             }
         });
     });
@@ -552,16 +604,25 @@ populate.merchant = function(){
                     }
                 },
                 error: function(status, xhr, err){
-                    var msg = "Sorry but there was an error: ";
-                    toastr.options = {
-                        closeButton: true,
-                        progressBar: true,
-                        showMethod: 'slideDown',
-                        timeOut: 4000
-                    };
-                    toastr.error(status.responseJSON.trace, msg);
-                    $('#new-merchant-btn strong').html('Register');
-                    $('#new-merchant-btn').removeAttr('disabled');
+                    var msg = errorRequestHandler(status);
+                    if( msg == expiredTokenMessage()){
+                        document.cookie = 'token=; path=/';
+                        location.reload();
+                    } else if(msg == serverErrorMessage()){
+                        $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+                    } else {
+                        var msg = "Sorry but there was an error: ";
+                        toastr.options = {
+                            closeButton: true,
+                            progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 4000
+                        };
+                        toastr.error(status.responseJSON.trace, msg);
+                        $('#new-merchant-btn strong').html('Register');
+                        $('#new-merchant-btn').removeAttr('disabled');
+                    }
+                    
                 }
             });
         } else {
@@ -603,16 +664,24 @@ populate.merchant = function(){
                     }
                 },
                 error: function(status, xhr, err){
-                    var msg = "Sorry but there was an error: ";
-                    toastr.options = {
-                        closeButton: true,
-                        progressBar: true,
-                        showMethod: 'slideDown',
-                        timeOut: 4000
-                    };
-                    toastr.error(status.responseJSON.trace, msg);
-                    $('#new-merchant-btn strong').html('Update');
-                    $('#new-merchant-btn').removeAttr('disabled');
+                    var msg = errorRequestHandler(status);
+                    if( msg == expiredTokenMessage()){
+                        document.cookie = 'token=; path=/';
+                        location.reload();
+                    } else if(msg == serverErrorMessage()){
+                        $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+                    } else {
+                        var msg = "Sorry but there was an error: ";
+                        toastr.options = {
+                            closeButton: true,
+                            progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 4000
+                        };
+                        toastr.error(status.responseJSON.trace, msg);
+                        $('#new-merchant-btn strong').html('Update');
+                        $('#new-merchant-btn').removeAttr('disabled');
+                    }
                 }
             });
         }
@@ -623,8 +692,8 @@ populate.merchant = function(){
         setTimeout(function(){
             $('#lp').locationpicker({
                 location: {
-                    latitude: -6.913529241,
-                    longitude: 107.635387021
+                    latitude: $('#lp-lat').val() !== ''? $('#lp-lat').val():-6.913529241,
+                    longitude: $('#lp-lon').val() !== ''? $('#lp-lon').val():107.635387021
                 },
                 radius: 1,
                 inputBinding: {
@@ -706,17 +775,26 @@ populate.merchant = function(){
                 $('#deleteMerchantModal').modal('hide');
             },
             error: function(status, xhr, err){
-                var msg = "Sorry but there was an error: ";
-                toastr.options = {
-                    closeButton: true,
-                    progressBar: true,
-                    showMethod: 'slideDown',
-                    timeOut: 4000
-                };
-                toastr.error(status.responseJSON.trace, msg);
-                _el.html('Confirm');
-                _el.removeAttr('disabled');
-                $('#deleteMerchantModal').modal('hide');
+                var msg = errorRequestHandler(status);
+                if( msg == expiredTokenMessage()){
+                    document.cookie = 'token=; path=/';
+                    location.reload();
+                } else if(msg == serverErrorMessage()){
+                    $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+                } else {
+                    var msg = "Sorry but there was an error: ";
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+                    toastr.error(status.responseJSON.trace, msg);
+                    _el.html('Confirm');
+                    _el.removeAttr('disabled');
+                    $('#deleteMerchantModal').modal('hide');
+                }
+                
             }
         });
     });

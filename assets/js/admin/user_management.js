@@ -242,7 +242,25 @@ var configSelectHolderUser = function(){
                     }
                 };
             },
-            cache: true
+            cache: true,
+            error: function(status, xhr, err){
+                var msg = errorRequestHandler(status);
+                if( msg == expiredTokenMessage()){
+                    document.cookie = 'token=; path=/';
+                    location.reload();
+                } else if(msg == serverErrorMessage()){
+                    $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+                } else {
+                    var msg = "Sorry but there was an error: ";
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+                    toastr.error(status.responseJSON.trace, msg);
+                }
+            }
         },
         templateResult: function(data){
            return data.name || data.text;
@@ -312,7 +330,25 @@ var configSelectMerchantUser = function(){
                     }
                 };
             },
-            cache: true
+            cache: true,
+            error: function(status, xhr, err){
+                var msg = errorRequestHandler(status);
+                if( msg == expiredTokenMessage()){
+                    document.cookie = 'token=; path=/';
+                    location.reload();
+                } else if(msg == serverErrorMessage()){
+                    $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+                } else {
+                    var msg = "Sorry but there was an error: ";
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+                    toastr.error(status.responseJSON.trace, msg);
+                }
+            }
         },
         templateResult: function(data){
            return data.name || data.text;
@@ -377,16 +413,24 @@ var loadUsers = function(cb){
             cb(false, data);    
         },
         error: function(status, xhr, err){
-            alert(status.responseJSON.trace);
-            var msg = "Sorry but there was an error: ";
-            toastr.options = {
-                closeButton: true,
-                progressBar: true,
-                showMethod: 'slideDown',
-                timeOut: 4000
-            };
-            toastr.error(status.responseJSON.trace, msg);
-            cb(true, status.responseJSON.trace);
+            var msg = errorRequestHandler(status);
+            if( msg == expiredTokenMessage()){
+                document.cookie = 'token=; path=/';
+                location.reload();
+            } else if(msg == serverErrorMessage()){
+                $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+            } else {
+                var msg = "Sorry but there was an error: ";
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    timeOut: 4000
+                };
+                toastr.error(status.responseJSON.trace, msg);
+                cb(true, status.responseJSON.trace);
+            }
+            
         }
     });
 }
@@ -551,16 +595,25 @@ populate.user_management = function(){
                     }
                 },
                 error: function(status, xhr, err){
-                    var msg = "Sorry but there was an error: ";
-                    toastr.options = {
-                        closeButton: true,
-                        progressBar: true,
-                        showMethod: 'slideDown',
-                        timeOut: 4000
-                    };
-                    toastr.error(status.responseJSON.trace, msg);
-                    $('#new-user-btn strong').html('Register');
-                    $('#new-user-btn').removeAttr('disabled');
+                    var msg = errorRequestHandler(status);
+                    if( msg == expiredTokenMessage()){
+                        document.cookie = 'token=; path=/';
+                        location.reload();
+                    } else if(msg == serverErrorMessage()){
+                        $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+                    } else {
+                        var msg = "Sorry but there was an error: ";
+                        toastr.options = {
+                            closeButton: true,
+                            progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 4000
+                        };
+                        toastr.error(status.responseJSON.trace, msg);
+                        $('#new-user-btn strong').html('Register');
+                        $('#new-user-btn').removeAttr('disabled');
+                    }
+                    
                 }
             });
         } else {
@@ -621,16 +674,25 @@ populate.user_management = function(){
                     }
                 },
                 error: function(status, xhr, err){
-                    var msg = "Sorry but there was an error: ";
-                    toastr.options = {
-                        closeButton: true,
-                        progressBar: true,
-                        showMethod: 'slideDown',
-                        timeOut: 4000
-                    };
-                    toastr.error(status.responseJSON.trace, msg);
-                    $('#new-user-btn strong').html('Update');
-                    $('#new-user-btn').removeAttr('disabled');
+                    var msg = errorRequestHandler(status);
+                    if( msg == expiredTokenMessage()){
+                        document.cookie = 'token=; path=/';
+                        location.reload();
+                    } else if(msg == serverErrorMessage()){
+                        $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+                    } else {
+                        var msg = "Sorry but there was an error: ";
+                        toastr.options = {
+                            closeButton: true,
+                            progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 4000
+                        };
+                        toastr.error(status.responseJSON.trace, msg);
+                        $('#new-user-btn strong').html('Update');
+                        $('#new-user-btn').removeAttr('disabled');
+                    }
+                    
                 }
             });
         }
@@ -706,17 +768,26 @@ populate.user_management = function(){
                 $('#deleteUserModal').modal('hide');
             },
             error: function(status, xhr, err){
-                var msg = "Sorry but there was an error: ";
-                toastr.options = {
-                    closeButton: true,
-                    progressBar: true,
-                    showMethod: 'slideDown',
-                    timeOut: 4000
-                };
-                toastr.error(status.responseJSON.trace, msg);
-                _el.html('Confirm');
-                _el.removeAttr('disabled');
-                $('#deleteUserModal').modal('hide');
+                var msg = errorRequestHandler(status);
+                if( msg == expiredTokenMessage()){
+                    document.cookie = 'token=; path=/';
+                    location.reload();
+                } else if(msg == serverErrorMessage()){
+                    $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+                } else {
+                    var msg = "Sorry but there was an error: ";
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+                    toastr.error(status.responseJSON.trace, msg);
+                    _el.html('Confirm');
+                    _el.removeAttr('disabled');
+                    $('#deleteUserModal').modal('hide');
+                }
+                
             }
         });
     });

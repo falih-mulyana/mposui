@@ -49,22 +49,21 @@ var refreshTableData = function(){
 
     loadOrg(function(error, data){
         if(!error){
-            // re-enable the elements
-            $('#org-table-server-refresh').removeAttr('disabled');
-            $('#org-table-server-refresh').html('<span class="glyphicon glyphicon-refresh"></span> Refresh Data');
-            $('#org-table-server-pagesize').removeAttr('disabled');
-            $('#org-table-server-filter').removeAttr('disabled');
-            $('#org-table-server-previous').removeAttr('disabled');
-            $('#org-table-server-next').removeAttr('disabled');
-
             configTableHolder();
         }
+        // re-enable the elements
+        $('#org-table-server-refresh').removeAttr('disabled');
+        $('#org-table-server-refresh').html('<span class="glyphicon glyphicon-refresh"></span> Refresh Data');
+        $('#org-table-server-pagesize').removeAttr('disabled');
+        $('#org-table-server-filter').removeAttr('disabled');
+        $('#org-table-server-previous').removeAttr('disabled');
+        $('#org-table-server-next').removeAttr('disabled');
     });
 
     //$('#org-list-table_info').html('Showing '+ localData.org.property.paging.page +' to '+ (localData.org.property.total < localData.org.property.paging.limit? localData.org.property.total:localData.org.property.paging.limit) +' of <strong>'+ localData.org.property.total +'</strong> entries');
 }
 
-var configSelectHolderType = function(){
+var configSelectHolderTypeOrg = function(){
 
     /*for(i=0; i<localData.orgType.data.length; i++){
         var el = '<option value="'+localData.orgType.data[i]._id+'">'+localData.orgType.data[i].name+'</option>';
@@ -105,7 +104,25 @@ var configSelectHolderType = function(){
                     }
                 };
             },
-            cache: true
+            cache: true,
+            error: function(status, xhr, err){
+                var msg = errorRequestHandler(status);
+                if( msg == expiredTokenMessage()){
+                    document.cookie = 'token=; path=/';
+                    location.reload();
+                } else if(msg == serverErrorMessage()){
+                    $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+                } else {
+                    var msg = "Sorry but there was an error: ";
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+                    toastr.error(status.responseJSON.trace, msg);
+                }
+            }
         },
         templateResult: function(data){
            return data.name || data.text;
@@ -285,16 +302,23 @@ var loadOrgType = function(cb){
             cb(false, data);       
         },
         error: function(status, xhr, err){
-            //alert(status.responseJSON.trace);
-            var msg = "Sorry but there was an error: ";
-            toastr.options = {
-                closeButton: true,
-                progressBar: true,
-                showMethod: 'slideDown',
-                timeOut: 4000
-            };
-            toastr.error(status.responseJSON.trace, msg);
-            cb(true, status.responseJSON.trace);
+            var msg = errorRequestHandler(status);
+            if( msg == expiredTokenMessage()){
+                document.cookie = 'token=; path=/';
+                location.reload();
+            } else if(msg == serverErrorMessage()){
+                $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+            } else {
+                var msg = "Sorry but there was an error: ";
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    timeOut: 4000
+                };
+                toastr.error(status.responseJSON.trace, msg);
+                cb(true, status.responseJSON.trace);
+            }
         }
     });
 }
@@ -329,16 +353,23 @@ var loadOrg = function(cb){
             cb(false, data);    
         },
         error: function(status, xhr, err){
-            alert(status.responseJSON.trace);
-            var msg = "Sorry but there was an error: ";
-            toastr.options = {
-                closeButton: true,
-                progressBar: true,
-                showMethod: 'slideDown',
-                timeOut: 4000
-            };
-            toastr.error(status.responseJSON.trace, msg);
-            cb(true, status.responseJSON.trace);
+            var msg = errorRequestHandler(status);
+            if( msg == expiredTokenMessage()){
+                document.cookie = 'token=; path=/';
+                location.reload();
+            } else if(msg == serverErrorMessage()){
+                $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+            } else {
+                var msg = "Sorry but there was an error: ";
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    timeOut: 4000
+                };
+                toastr.error(status.responseJSON.trace, msg);
+                cb(true, status.responseJSON.trace);
+            }
         }
     });
 }
@@ -363,7 +394,7 @@ populate.organization = function(){
         setNewOrgBtn(localData.updateOrg);
     }
 
-    configSelectHolderType();
+    configSelectHolderTypeOrg();
     configTableHolder();
 
     $('#tax-checks').iCheck({
@@ -375,8 +406,8 @@ populate.organization = function(){
         setTimeout(function(){
             $('#lp').locationpicker({
                 location: {
-                    latitude: -6.913529241,
-                    longitude: 107.635387021
+                    latitude: $('#lp-lat').val() !== ''? $('#lp-lat').val():-6.913529241,
+                    longitude: $('#lp-lon').val() !== ''? $('#lp-lon').val():107.635387021
                 },
                 radius: 1,
                 inputBinding: {
@@ -500,16 +531,25 @@ populate.organization = function(){
                     }
                 },
                 error: function(status, xhr, err){
-                    var msg = "Sorry but there was an error: ";
-                    toastr.options = {
-                        closeButton: true,
-                        progressBar: true,
-                        showMethod: 'slideDown',
-                        timeOut: 4000
-                    };
-                    toastr.error(status.responseJSON.trace, msg);
-                    $('#new-org-btn strong').html('Register');
-                    $('#new-org-btn').removeAttr('disabled');
+                    var msg = errorRequestHandler(status);
+                    if( msg == expiredTokenMessage()){
+                        document.cookie = 'token=; path=/';
+                        location.reload();
+                    } else if(msg == serverErrorMessage()){
+                        $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+                    } else {
+                        var msg = "Sorry but there was an error: ";
+                        toastr.options = {
+                            closeButton: true,
+                            progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 4000
+                        };
+                        toastr.error(status.responseJSON.trace, msg);
+                        $('#new-org-btn strong').html('Register');
+                        $('#new-org-btn').removeAttr('disabled');
+                    }
+                    
                 }
             });
         } else {
@@ -551,16 +591,25 @@ populate.organization = function(){
                     }
                 },
                 error: function(status, xhr, err){
-                    var msg = "Sorry but there was an error: ";
-                    toastr.options = {
-                        closeButton: true,
-                        progressBar: true,
-                        showMethod: 'slideDown',
-                        timeOut: 4000
-                    };
-                    toastr.error(status.responseJSON.trace, msg);
-                    $('#new-org-btn strong').html('Update');
-                    $('#new-org-btn').removeAttr('disabled');
+                    var msg = errorRequestHandler(status);
+                    if( msg == expiredTokenMessage()){
+                        document.cookie = 'token=; path=/';
+                        location.reload();
+                    } else if(msg == serverErrorMessage()){
+                        $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+                    } else {
+                        var msg = "Sorry but there was an error: ";
+                        toastr.options = {
+                            closeButton: true,
+                            progressBar: true,
+                            showMethod: 'slideDown',
+                            timeOut: 4000
+                        };
+                        toastr.error(status.responseJSON.trace, msg);
+                        $('#new-org-btn strong').html('Update');
+                        $('#new-org-btn').removeAttr('disabled');
+                    }
+                    
                 }
             });
         }
@@ -631,17 +680,26 @@ populate.organization = function(){
                 $('#deleteOrgModal').modal('hide');
             },
             error: function(status, xhr, err){
-                var msg = "Sorry but there was an error: ";
-                toastr.options = {
-                    closeButton: true,
-                    progressBar: true,
-                    showMethod: 'slideDown',
-                    timeOut: 4000
-                };
-                toastr.error(status.responseJSON.trace, msg);
-                _el.html('Confirm');
-                _el.removeAttr('disabled');
-                $('#deleteOrgModal').modal('hide');
+                var msg = errorRequestHandler(status);
+                if( msg == expiredTokenMessage()){
+                    document.cookie = 'token=; path=/';
+                    location.reload();
+                } else if(msg == serverErrorMessage()){
+                    $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+                } else {
+                    var msg = "Sorry but there was an error: ";
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+                    toastr.error(status.responseJSON.trace, msg);
+                    _el.html('Confirm');
+                    _el.removeAttr('disabled');
+                    $('#deleteOrgModal').modal('hide');
+                }
+                
             }
         });
     });
@@ -689,17 +747,26 @@ populate.organization = function(){
                 $('#newtypemodal').modal('hide');
             },
             error: function(status, xhr, err){
-                var msg = "Sorry but there was an error: ";
-                toastr.options = {
-                    closeButton: true,
-                    progressBar: true,
-                    showMethod: 'slideDown',
-                    timeOut: 4000
-                };
-                toastr.error(status.responseJSON.trace, msg);
-                _el.html('Save Changes');
-                _el.removeAttr('disabled');
-                $('#newtypemodal').modal('hide');
+                var msg = errorRequestHandler(status);
+                if( msg == expiredTokenMessage()){
+                    document.cookie = 'token=; path=/';
+                    location.reload();
+                } else if(msg == serverErrorMessage()){
+                    $('body').html('<h2 style="color: white;">'+msg+'</h2>');
+                } else {
+                    var msg = "Sorry but there was an error: ";
+                    toastr.options = {
+                        closeButton: true,
+                        progressBar: true,
+                        showMethod: 'slideDown',
+                        timeOut: 4000
+                    };
+                    toastr.error(status.responseJSON.trace, msg);
+                    _el.html('Save Changes');
+                    _el.removeAttr('disabled');
+                    $('#newtypemodal').modal('hide');
+                }
+                
             }
         });
     });
