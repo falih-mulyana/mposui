@@ -537,6 +537,7 @@ populate.device_management = function(){
                     timeOut: 4000
                 };
                 toastr.error('', msg);
+                registering = false;
                 return;
             }
             if($('#name-input').val() == ''){
@@ -548,6 +549,7 @@ populate.device_management = function(){
                     timeOut: 4000
                 };
                 toastr.error('', msg);
+                registering = false;
                 return;
             }
             if($('#serial-input').val() == ''){
@@ -559,6 +561,7 @@ populate.device_management = function(){
                     timeOut: 4000
                 };
                 toastr.error('', msg);
+                registering = false;
                 return;
             }
 
@@ -571,6 +574,20 @@ populate.device_management = function(){
                     timeOut: 4000
                 };
                 toastr.error('', msg);
+                registering = false;
+                return;
+            }
+
+            if($('#lp-lat').val() == '' && $('#lp-lon').val() == ''){
+                var msg = "Location required";
+                toastr.options = {
+                    closeButton: true,
+                    progressBar: true,
+                    showMethod: 'slideDown',
+                    timeOut: 4000
+                };
+                toastr.error('', msg);
+                registering = false;
                 return;
             }
 

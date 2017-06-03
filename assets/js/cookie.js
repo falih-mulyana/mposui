@@ -23,7 +23,7 @@ function getCookie(cname) {
 function checkCookie() {
     var tkn = getCookie("token");
     if (tkn != "") {
-		return { userName: getCookie("username"), orgId: getCookie("orgid"), userRole: getCookie("userrole")};
+		return { userName: getCookie("userName"), orgId: getCookie("orgid"), userRole: getCookie("userRole")};
     } else {
         window.location = "/login";
         return;

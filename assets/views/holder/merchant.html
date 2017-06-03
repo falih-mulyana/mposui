@@ -1,18 +1,16 @@
 <div class="row">
 	<div class="col-md-4">
 		<div class="panel panel-primary">
-            <div class="panel-heading" id="org-form-title">
-                Create New Organization / Holder
+            <div class="panel-heading" id="merchant-form-title">
+                Create New Merchant
             </div>
             <div class="panel-body">
                 <form role="form">
-                	<div class="form-group"><label>Organization Name</label> <input type="text" id="name-input" placeholder="For new holder" class="form-control"></div>
+                    <div class="form-group"><label>Name</label> <input type="name" id="name-input" placeholder="Merchant Name" class="form-control"></div>
                     <div class="form-group"><label>Email</label> <input type="email" id="email-input" placeholder="Email" class="form-control"></div>
                     <div class="form-group">
-                    	<label>Holder Type</label>
-                        <select id="select-holder-type" class="form-control">
-                            <!-- <option value="1">Restaurant</option>
-                            <option value="2">Conveinent Store</option> -->
+                    	<label>Merchant Type</label>
+                        <select id="select-merchant-type" class="form-control">
                         </select>
                     </div>
                     <div class="form-group">
@@ -30,8 +28,8 @@
                     <div class="form-group"><label>NPWP</label> <input type="text" id="npwp-input" placeholder="Tax Number" class="form-control"></div>
                     <div class="form-group"><label>Phone</label> <input type="text" id="phone-input" placeholder="+6281234567" class="form-control"></div>
                     <div>
-                        &nbsp;<button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" id="new-org-btn"><strong>Register</strong></button>
-                        <button class="btn btn-sm btn-warning pull-right m-t-n-xs" id="reset-org-btn" type="reset"><strong>Reset Form</strong></button>
+                        &nbsp;<button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit" id="new-merchant-btn"><strong>Register</strong></button>
+                        <button class="btn btn-sm btn-warning pull-right m-t-n-xs" id="reset-merchant-btn" type="reset"><strong>Reset Form</strong></button>
                     </div>
                 </form>
             </div>
@@ -40,11 +38,11 @@
 	<div class="col-md-8">
 		<div class="panel-info">
 			<div class="panel-heading">
-				List of Registered Organizations	
+				List of Registered Merchants	
 			</div>
 			<div class="panel-body">
 				<div class="table-responsive">
-					<table class="table table-striped" id="org-list-table">
+					<table class="table table-striped" id="merchant-list-table">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -71,7 +69,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h4 class="modal-title">Create New Holder Type</h4>
+                <h4 class="modal-title">Create New Merchant Type</h4>
                 <small class="font-bold">Fill all the necessary fields.</small>
             </div>
             <div class="modal-body">
@@ -86,7 +84,7 @@
     </div>
 </div>
 
-<div class="modal inmodal fade" id="deleteOrgModal" tabindex="-1" role="dialog"  aria-hidden="true">
+<div class="modal inmodal fade" id="deleteMerchantModal" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">

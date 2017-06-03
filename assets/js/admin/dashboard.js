@@ -100,8 +100,8 @@ var renderElements = function(tabsName){
 		        bindto: '#lineChart-holder',
 		        data:{
 		            columns: [
-		                ['data1', 30, 200, 100, 400, 150, 250],
-		                ['data2', 50, 20, 10, 40, 15, 25]
+		                ['Merchant 1', 30, 200, 100, 400, 150, 250],
+		                ['Merchant 2', 50, 20, 10, 40, 15, 25]
 		            ],
 		            colors:{
 		                data1: '#1ab394',
@@ -114,8 +114,8 @@ var renderElements = function(tabsName){
 		        bindto: '#pie-holder',
 		        data:{
 		            columns: [
-		                ['data1', 30],
-		                ['data2', 120]
+		                ['Merchant 1', 30],
+		                ['Merchant 2', 120]
 		            ],
 		            colors:{
 		                data1: '#1ab394',
@@ -133,8 +133,8 @@ var renderElements = function(tabsName){
 		        data: {
 		            columns:
 		            [
-		                ['data1', 5],
-			            ['data2', 8]
+		                ['Merchant 1', 5],
+			            ['Merchant 2', 8]
 		            ],
 		            type: 'bar',
 		            colors:{
@@ -178,8 +178,8 @@ var renderElements = function(tabsName){
 		    	bindto: '#bar-holder',
 			    data: {
 			        columns: [
-			            ['data1', 30, 200, 100, 400, 150, 250],
-			            ['data2', 130, 100, 140, 200, 150, 50]
+			            ['Merchant 1', 30, 200, 100, 400, 150, 250],
+			            ['Merchant 2', 130, 100, 140, 200, 150, 50]
 			        ],
 			        type: 'bar',
 			        colors:{
@@ -204,8 +204,8 @@ var renderElements = function(tabsName){
 		        data: {
 		            columns:
 		            [
-		                ['data1', 30],
-			            ['data2', 42]
+		                ['Merchant 1', 30],
+			            ['Merchant 2', 42]
 		            ],
 		            type: 'bar',
 		            colors:{
@@ -246,8 +246,8 @@ var renderElements = function(tabsName){
 		        data: {
 		            columns:
 		            [
-		                ['data1', 120],
-			            ['data2', 94]
+		                ['Merchant 1', 120],
+			            ['Merchant 2', 94]
 		            ],
 		            type: 'bar',
 		            colors:{
@@ -288,8 +288,8 @@ var renderElements = function(tabsName){
 		        bindto: '#lineChart-merchant',
 		        data:{
 		            columns: [
-		                ['data1', 30, 200, 100, 400, 150, 250],
-		                ['data2', 50, 20, 10, 40, 15, 25]
+		                ['Item 1', 30, 200, 100, 400, 150, 250],
+		                ['Item 2', 50, 20, 10, 40, 15, 25]
 		            ],
 		            colors:{
 		                data1: '#1ab394',
@@ -302,8 +302,8 @@ var renderElements = function(tabsName){
 		    	bindto: '#bar-merchant',
 			    data: {
 			        columns: [
-			            ['data1', 30, 200, 100, 400, 150, 250],
-			            ['data2', 130, 100, 140, 200, 150, 50]
+			            ['Item 1', 30, 200, 100, 400, 150, 250],
+			            ['Item 2', 130, 100, 140, 200, 150, 50]
 			        ],
 			        type: 'bar',
 			        colors:{
@@ -323,8 +323,8 @@ var renderElements = function(tabsName){
 			Morris.Donut({
 		        element: 'donut-merchant',
 		        data: [{ label: "Download Sales", value: 12 },
-		            { label: "In-Store Sales", value: 30 },
-		            { label: "Mail-Order Sales", value: 20 } ],
+		            { label: "Steak", value: 30 },
+		            { label: "Orange Smoothie", value: 20 } ],
 		        resize: true,
 		        colors: ['#87d6c6', '#54cdb4','#1ab394'],
 		    });
@@ -391,8 +391,8 @@ populate.dashboard = function(){
         bindto: '#lineChart',
         data:{
             columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25]
+                ['Holder 1', 30, 200, 100, 400, 150, 250],
+                ['Holder 2', 50, 20, 10, 40, 15, 25]
             ],
             colors:{
                 data1: '#1ab394',
@@ -406,8 +406,8 @@ populate.dashboard = function(){
         bindto: '#pie',
         data:{
             columns: [
-                ['data1', 30],
-                ['data2', 120]
+                ['Org Type 1', 30],
+                ['org Type 2', 120]
             ],
             colors:{
                 data1: '#1ab394',
@@ -422,8 +422,8 @@ populate.dashboard = function(){
     	bindto: '#bar',
 	    data: {
 	        columns: [
-	            ['data1', 30, 200, 100, 400, 150, 250],
-	            ['data2', 130, 100, 140, 200, 150, 50]
+	            ['Hodler 1', 30, 200, 100, 400, 150, 250],
+	            ['Hodler 2', 130, 100, 140, 200, 150, 50]
 	        ],
 	        type: 'bar',
 	        colors:{
@@ -449,8 +449,8 @@ populate.dashboard = function(){
         data: {
             columns:
             [
-                ['data1', 5],
-	            ['data2', 8]
+                ['Holder 1', 5],
+	            ['Holder 2', 8]
             ],
             type: 'bar',
             colors:{
@@ -499,8 +499,8 @@ populate.dashboard = function(){
         data: {
             columns:
             [
-                ['data1', 120],
-	            ['data2', 94]
+                ['Holder 1', 120],
+	            ['Holder 2', 94]
             ],
             type: 'bar',
             colors:{
@@ -542,8 +542,8 @@ populate.dashboard = function(){
         data: {
             columns:
             [
-                ['data1', 30],
-	            ['data2', 42]
+                ['Holder 1', 30],
+	            ['Holder 2', 42]
             ],
             type: 'bar',
             colors:{
